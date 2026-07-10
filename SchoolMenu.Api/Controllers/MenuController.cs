@@ -77,49 +77,57 @@ public class MenuController : ControllerBase
 
     // ═══════════════════════════════════════════════════════
     //  ЗАДАЧА 3: РЕДАКТИРАНЕ - PUT /api/menu/{id}
-    //
-    //  Стъпки:
-    //   1. Направи метод с [HttpPut("{id}")] и [Authorize(Roles = "kitchen")]:
-    //        public async Task<IActionResult> Update(int id, [FromBody] DailyMenu updated)
-    //      ({id} от адреса влиза в параметъра id автоматично)
-    //   2. Намери менюто в базата:
-    //        var menu = await _db.DailyMenus.FindAsync(id);
-    //   3. Ако е null -> return NotFound(new { message = "Няма такова меню" });
-    //   4. Прехвърли новите стойности върху намереното меню:
-    //        menu.SoupId       = updated.SoupId;
-    //        menu.MainCourseId = updated.MainCourseId;
-    //        menu.DessertId    = updated.DessertId;
-    //        menu.Notes        = updated.Notes;
-    //   5. await _db.SaveChangesAsync();   // EF прави UPDATE в базата
-    //   6. return Ok(menu);
-    //
-    //  Тествай в Swagger, преди да правиш бутон в admin панела!
     // ═══════════════════════════════════════════════════════
+    [HttpPut("{id}")]
+    [Authorize(Roles = "kitchen")]
+    public async Task<IActionResult> Update(int id, [FromBody] DailyMenu updated)
+    {
+        var menu = await _db.DailyMenus.FindAsync(id);
+        if (menu == null)
+            return NotFound(new { message = "Няма такова меню" });
+
+        menu.SoupId       = updated.SoupId;
+        menu.MainCourseId = updated.MainCourseId;
+        menu.DessertId    = updated.DessertId;
+        menu.Notes        = updated.Notes;
+
+        await _db.SaveChangesAsync();
+        return Ok(menu);
+    }
 
     // ═══════════════════════════════════════════════════════
     //  ЗАДАЧА 4: ИЗТРИВАНЕ - DELETE /api/menu/{id}
-    //
-    //  Стъпки:
-    //   1. [HttpDelete("{id}")] + [Authorize(Roles = "kitchen")]
-    //   2. Намери менюто с FindAsync(id); ако е null -> NotFound
-    //   3. _db.DailyMenus.Remove(menu);
-    //   4. await _db.SaveChangesAsync();   // EF прави DELETE
-    //   5. return Ok(new { message = "Менюто е изтрито" });
     // ═══════════════════════════════════════════════════════
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "kitchen")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var menu = await _db.DailyMenus.FindAsync(id);
+        if (menu == null)
+            return NotFound(new { message = "Няма такова меню" });
+
+        _db.DailyMenus.Remove(menu);
+        await _db.SaveChangesAsync();
+        return Ok(new { message = "Менюто е изтрито" });
+    }
 
     // ═══════════════════════════════════════════════════════
     //  ЗАДАЧА 5: СЕДМИЧНО МЕНЮ - GET /api/menu/week?from=2026-07-06
-    //
-    //  Подсказки:
-    //   1. [HttpGet("week")] + [AllowAnonymous]
-    //        public async Task<IActionResult> GetWeek([FromQuery] DateTime from)
-    //   2. var to = from.AddDays(5);
-    //   3. Вземи всички менюта в периода:
-    //        await _db.DailyMenus
-    //            .Include(...)  // трите Include-а, като в GetByDate
-    //            .Where(m => m.Date >= from && m.Date < to)
-    //            .OrderBy(m => m.Date)
-    //            .ToListAsync();
-    //   4. return Ok(списъка);
     // ═══════════════════════════════════════════════════════
+    [HttpGet("week")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetWeek([FromQuery] DateTime from)
+    {
+        var to = from.AddDays(5);
+
+        var menus = await _db.DailyMenus
+            .Include(m => m.Soup)
+            .Include(m => m.MainCourse)
+            .Include(m => m.Dessert)
+            .Where(m => m.Date >= from && m.Date < to)
+            .OrderBy(m => m.Date)
+            .ToListAsync();
+
+        return Ok(menus);
+    }
 }
