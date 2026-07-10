@@ -60,16 +60,17 @@ public class MenuItemsController : ControllerBase
         return Created($"/api/menuitems/{item.Id}", item);
     }
 
-    // ═══════════════════════════════════════════════════════
-    //  ЗАДАЧА ПО ЖЕЛАНИЕ: изтриване на ястие
-    //  DELETE /api/menuitems/{id}
-    //
-    //  Стъпки (същите като ЗАДАЧА 4 в MenuController.cs):
-    //   1. [HttpDelete("{id}")] + [Authorize(Roles = "kitchen")]
-    //   2. var item = await _db.MenuItems.FindAsync(id);
-    //   3. ако е null -> return NotFound(...)
-    //   4. _db.MenuItems.Remove(item);
-    //   5. await _db.SaveChangesAsync();
-    //   6. return Ok(...)
-    // ═══════════════════════════════════════════════════════
+    // ИЗТРИВАНЕ: DELETE /api/menuitems/{id}
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "kitchen")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var item = await _db.MenuItems.FindAsync(id);
+        if (item == null)
+            return NotFound(new { message = "Ястието не съществува" });
+
+        _db.MenuItems.Remove(item);
+        await _db.SaveChangesAsync();
+        return Ok(new { message = $"\"{item.Name}\" е изтрито" });
+    }
 }
