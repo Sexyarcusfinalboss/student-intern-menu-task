@@ -26,5 +26,9 @@ public class MenuItem
 
     public string? Allergens { get; set; }      // напр. "глутен, мляко"
 
-    public string? ImageUrl { get; set; }       // бонус задача: снимка на ястието
+    public string? Ingredients { get; set; }    // съставки, напр. "краставица, кисело мляко, чесън"
+
+    public decimal? Price { get; set; }         // цена в лева, напр. 2.50
+
+    public string? ImageUrl { get; set; }       // снимка на ястието
 }
