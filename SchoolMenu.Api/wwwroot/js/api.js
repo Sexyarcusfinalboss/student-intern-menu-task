@@ -85,16 +85,47 @@ async function postMenuItem(item) {
   return await res.json();
 }
 
-// ═══════════════════════════════════════════════════════════
-//  ТУК ЩЕ ДОБАВЯШ НОВИ ФУНКЦИИ, като стигнеш до задачите.
-//  Копирай модела от готовите функции по-горе!
-//
-//  За ЗАДАЧА 3 (редактиране):  putMenu(id, menuData)
-//     fetch(`${API_BASE}/menu/${id}`, { method: "PUT", headers..., body... })
-//
-//  За ЗАДАЧА 4 (изтриване):    deleteMenu(id)
-//     fetch(`${API_BASE}/menu/${id}`, { method: "DELETE" })
-//
-//  За ЗАДАЧА 5 (седмица):      getWeek(fromStr)
-//     fetch(`${API_BASE}/menu/week?from=${fromStr}`)
-// ═══════════════════════════════════════════════════════════
+// ИЗТРИВАНЕ на ястие (DELETE) - за бутона в админ панела
+async function deleteMenuItem(id) {
+  const res = await fetch(`${API_BASE}/menuitems/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || "Неуспешно изтриване на ястие");
+  }
+  return await res.json();
+}
+
+// ЗАДАЧА 3: Редактиране на меню (PUT)
+async function putMenu(id, menuData) {
+  const res = await fetch(`${API_BASE}/menu/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(menuData),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || "Неуспешно редактиране");
+  }
+  return await res.json();
+}
+
+// ЗАДАЧА 4: Изтриване на меню (DELETE)
+async function deleteMenu(id) {
+  const res = await fetch(`${API_BASE}/menu/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || "Неуспешно изтриване");
+  }
+  return await res.json();
+}
+
+// ЗАДАЧА 5: Седмично меню (GET)
+async function getWeekMenu(fromStr) {
+  const res = await fetch(`${API_BASE}/menu/week?from=${fromStr}`);
+  if (!res.ok) throw new Error("Грешка при зареждане на седмичното меню");
+  return await res.json();
+}
