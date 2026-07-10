@@ -1,48 +1,70 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="bg" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход | Дневно меню</title>
+  <title>Arcus and Foods | Вход</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <main class="login-box">
-    <h1>🔐 Вход</h1>
+  <header>
+    <div class="logo">
+      <img class="logo-img"
+           src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=88&h=88&fit=crop"
+           alt="Arcus and Foods">
+      <h1>Arcus <span>and Foods</span></h1>
+    </div>
+    <div class="header-right">
+      <button id="btn-theme" title="Смени режима">🌙</button>
+    </div>
+  </header>
 
-    <!-- Подсказка за тестване - махни я преди реално ползване! -->
-    <p class="hint">Тестови акаунти: kitchen / kitchen123 &middot; student / student123</p>
+  <main>
+    <div class="login-box">
+      <h1>Вход</h1>
+      <p class="hint">kitchen / kitchen123 &nbsp;&middot;&nbsp; student / student123</p>
 
-    <form id="login-form">
-      <input id="username" placeholder="Потребителско име" required>
-      <input id="password" type="password" placeholder="Парола" required>
-      <button type="submit">Влез</button>
-      <!-- Тук се показва съобщение при грешен вход -->
-      <div id="error" class="error"></div>
-    </form>
+      <form id="login-form">
+        <input id="username" placeholder="Потребителско име" required>
+        <input id="password" type="password" placeholder="Парола" required>
+        <button type="submit">Влез</button>
+        <div id="error" class="error"></div>
+      </form>
 
-    <a href="index.html">← Обратно към менюто</a>
+      <a href="index.html">← Обратно към менюто</a>
+    </div>
   </main>
 
   <script src="js/api.js"></script>
   <script>
-    // Логиката на входа е кратка, затова е директно тук.
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
-      e.preventDefault();   // спри презареждането на страницата
+    // Тъмен/светъл режим
+    (function(){
+      const saved = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      const btn = document.getElementById('btn-theme');
+      btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+      btn.onclick = () => {
+        const cur = document.documentElement.getAttribute('data-theme');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        btn.textContent = next === 'dark' ? '☀️' : '🌙';
+      };
+    })();
 
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const errDiv = document.getElementById("error");
+      errDiv.textContent = "";
       try {
-        const user = await login(              // функцията е в api.js
+        const user = await login(
           document.getElementById("username").value,
           document.getElementById("password").value
         );
-
-        // Пренасочваме според ролята:
-        // кухнята -> админ панела, всички останали -> менюто
         window.location.href = (user.role === "kitchen") ? "admin.html" : "index.html";
       } catch (err) {
-        // Сървърът върна грешка, напр. "Грешно потребителско име или парола"
-        document.getElementById("error").textContent = err.message;
+        errDiv.textContent = err.message;
       }
     });
   </script>
