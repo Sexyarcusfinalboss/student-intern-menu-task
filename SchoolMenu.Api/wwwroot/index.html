@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="bg" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport = страницата да изглежда добре и на телефон -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Дневно меню</title>
+  <title>Arcus and Foods</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <header>
-    <h1>🍽️ Дневно меню</h1>
-    <a href="login.html">Вход за кухнята</a>
+    <div class="logo">
+      <img class="logo-img"
+           src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=88&h=88&fit=crop"
+           alt="Arcus and Foods">
+      <h1>Arcus <span>and Foods</span></h1>
+    </div>
+    <div class="header-right">
+      <button id="btn-theme" title="Смени режима">🌙</button>
+      <a href="login.html">Вход за кухнята</a>
+    </div>
   </header>
 
   <main>
-    <!-- Датата се попълва от student.js -->
     <h2 id="menu-date"></h2>
-
-    <!-- ═══════════ ЗАДАЧА 2: Навигация между дните ═══════════
-         Разкоментирай трите бутона по-долу (изтрий този ред и
-         реда след бутоните) и виж стъпките в js/student.js.
 
     <div class="day-nav">
       <button id="btn-prev">← Вчера</button>
       <button id="btn-today">Днес</button>
       <button id="btn-next">Утре →</button>
     </div>
-         ═══════════════════════════════════════════════════════ -->
 
-    <!-- Тук student.js "рисува" менюто -->
+    <!-- Падащ филтър по алергени -->
+    <div class="filter-bar">
+      <select id="allergen-filter"></select>
+    </div>
+
     <div id="menu-container">Зареждане...</div>
   </main>
 
-  <!-- Редът е важен: първо api.js (функциите), после student.js (ползва ги) -->
   <script src="js/api.js"></script>
   <script src="js/student.js"></script>
 </body>
