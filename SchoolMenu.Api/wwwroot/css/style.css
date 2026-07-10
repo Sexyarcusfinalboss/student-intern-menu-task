@@ -1,150 +1,559 @@
 /* ============================================================
-   style.css - общите стилове за всички страници.
-
-   Цветовете са "CSS променливи" - промени ги тук и цялото
-   приложение се пребоядисва. (Бонус задача: тъмен режим =
-   втори набор от тези променливи!)
+   style.css - Arcus and Foods
+   Дизайн: черен фон, оранжеви акценти, снимки вместо емоджи
    ============================================================ */
 :root {
-  --bg: #f4f6f8;            /* фон на страницата */
-  --card: #ffffff;          /* фон на картите/панелите */
-  --text: #1f2933;          /* основен текст */
-  --muted: #6b7280;         /* по-блед текст */
-  --primary: #2563eb;       /* основен цвят (бутони, header) */
-  --primary-dark: #1e40af;  /* при hover */
-  --danger: #dc2626;        /* грешки */
-  --radius: 12px;           /* заобляне на ъглите */
+  --bg: #111111;
+  --bg-secondary: #1a1a1a;
+  --card: #1e1e1e;
+  --text: #f5f5f5;
+  --muted: #999999;
+  --primary: #f97316;       /* оранжево */
+  --primary-dark: #ea6c08;
+  --danger: #ef4444;
+  --radius: 12px;
+  --sidebar-width: 220px;
 }
 
-/* Нулиране: браузърите слагат свои отстъпи - махаме ги */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ---------------- Header (горна лента) ---------------- */
+/* ── Оранжеви ленти отстрани ─────────────────────────────── */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: linear-gradient(180deg, #f97316 0%, #c2410c 100%);
+  z-index: 0;
+}
+body::before { left: 0; }
+body::after  { right: 0; }
+
+/* ── Header ─────────────────────────────────────────────── */
 header {
-  background: var(--primary);
+  position: relative;
+  z-index: 10;
+  background: #0a0a0a;
   color: white;
-  padding: 16px 24px;
+  padding: 18px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;          /* на тесен екран се пренарежда */
+  flex-wrap: wrap;
   gap: 8px;
+  border-bottom: 3px solid var(--primary);
 }
-header h1 { font-size: 1.25rem; }
-header a { color: white; }
-.header-right { display: flex; align-items: center; gap: 12px; }
 
-/* main е центриран и не по-широк от 640px -> чете се добре
-   и на телефон, и на голям монитор (responsive) */
-main { max-width: 640px; margin: 24px auto; padding: 0 16px; }
-
-h2 { margin-bottom: 12px; }
-h3 { margin-top: 16px; }
-
-/* ---------------- Карта с менюто (index.html) ---------------- */
-.menu-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 8px 20px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-}
-.menu-item {
+.logo {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 0;
-  border-bottom: 1px solid #eef0f2;
 }
+.logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
+}
+.logo h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: white;
+}
+.logo h1 span { color: var(--primary); }
+
+header a { color: var(--primary); text-decoration: none; font-weight: 600; }
+header a:hover { color: white; }
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+/* ── Централна зона ─────────────────────────────────────── */
+main {
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+  width: 100%;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
+h2 {
+  margin-bottom: 14px;
+  font-size: 1.15rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+h3 { margin-top: 18px; color: var(--text); }
+
+/* ── Карта с менюто ─────────────────────────────────────── */
+.menu-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid #2a2a2a;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #2a2a2a;
+  transition: background 0.15s;
+}
+.menu-item:hover { background: #252525; }
 .menu-item:last-of-type { border-bottom: none; }
-.menu-item .emoji { font-size: 1.8rem; }
+
+/* Снимка за ястие */
+.menu-item-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #333;
+  flex-shrink: 0;
+}
+
 .menu-item small {
   display: block;
-  color: var(--muted);
+  color: var(--primary);
   text-transform: uppercase;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: 2px;
 }
-.menu-item strong { font-size: 1.05rem; }
-.menu-item em { display: block; color: var(--muted); font-size: 0.8rem; font-style: normal; }
+.menu-item strong { font-size: 1.05rem; color: var(--text); }
+.menu-item em { display: block; color: var(--muted); font-size: 0.8rem; font-style: normal; margin-top: 2px; }
 
 .notes {
-  background: #eff6ff;
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin: 10px 0 14px;
+  background: #1a1200;
+  border-left: 3px solid var(--primary);
+  padding: 12px 16px;
+  margin: 0;
   font-size: 0.9rem;
+  color: #fcd34d;
 }
 
-/* Съобщение "менюто не е публикувано" */
 .alert {
-  background: #fef3c7;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-left: 4px solid var(--primary);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 20px;
+  color: var(--muted);
 }
 
-/* ---------------- Форми ---------------- */
+/* ── Навигация по дни ───────────────────────────────────── */
+.day-nav { display: flex; gap: 8px; margin-bottom: 20px; }
+.day-nav button { flex: 1; }
+
+/* ── Форми ──────────────────────────────────────────────── */
 form { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+label { color: var(--muted); font-size: 0.85rem; font-weight: 600; margin-bottom: -4px; }
+
 input, select, textarea {
   padding: 10px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #333;
   border-radius: 8px;
   font: inherit;
-  background: white;
+  background: #111;
+  color: var(--text);
 }
+input:focus, select:focus { outline: none; border-color: var(--primary); }
+
 button {
-  padding: 10px 16px;
+  padding: 11px 18px;
   border: none;
   border-radius: 8px;
   background: var(--primary);
   color: white;
   font: inherit;
+  font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s;
 }
 button:hover { background: var(--primary-dark); }
 
-/* ---------------- Админ панел ---------------- */
+/* ── Админ панел ────────────────────────────────────────── */
 .panel {
   background: var(--card);
   border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  border: 1px solid #2a2a2a;
+  padding: 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 .panel ul { list-style: none; }
 .panel li {
-  padding: 8px 0;
-  border-bottom: 1px solid #eef0f2;
+  padding: 9px 0;
+  border-bottom: 1px solid #2a2a2a;
   display: flex;
   justify-content: space-between;
+  color: var(--text);
 }
-.tag { color: var(--muted); font-size: 0.85rem; }
+.tag { color: var(--primary); font-size: 0.85rem; }
 
-/* Секцията-задача е с пунктирана рамка, за да се набива на очи */
-.todo-box { border: 2px dashed var(--primary); }
-.todo-box p { margin-bottom: 8px; }
+#btn-logout {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+#btn-logout:hover { background: var(--primary); color: white; }
 
-#btn-logout { background: rgba(255, 255, 255, 0.18); }
+#menu-msg { margin-top: 10px; font-weight: 600; }
 
-/* ---------------- Login страница ---------------- */
+/* ── Login ──────────────────────────────────────────────── */
 .login-box {
-  max-width: 360px;
-  margin-top: 10vh;
+  max-width: 380px;
+  margin: 10vh auto 0;
   background: var(--card);
-  padding: 28px;
+  padding: 32px;
   border-radius: var(--radius);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6);
 }
-.login-box h1 { margin-bottom: 8px; }
-.login-box a { display: inline-block; margin-top: 14px; }
-.hint { color: var(--muted); font-size: 0.85rem; margin-bottom: 10px; }
+.login-box h1 { margin-bottom: 6px; color: var(--primary); }
+.login-box a { display: inline-block; margin-top: 14px; color: var(--primary); }
+.hint { color: var(--muted); font-size: 0.85rem; margin-bottom: 12px; }
 .error { color: var(--danger); min-height: 1.2em; font-size: 0.9rem; }
 
-/* ---------------- Навигация по дни (ЗАДАЧА 2) ---------------- */
-.day-nav { display: flex; gap: 8px; margin-bottom: 16px; }
-.day-nav button { flex: 1; }
+/* ── Responsive: на тесен екран лентите изчезват ─────── */
+@media (max-width: 900px) {
+  :root { --sidebar-width: 80px; }
+}
+@media (max-width: 600px) {
+  body::before, body::after { display: none; }
+  main { padding: 0 12px; }
+}
+
+/* ── Grid с ястия (2 на ред) ────────────────────────────── */
+.food-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.food-card {
+  background: var(--card);
+  border: 1px solid #2a2a2a;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.food-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 2px solid var(--primary);
+}
+
+.food-info {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.food-info small {
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.food-info strong {
+  font-size: 1rem;
+  color: var(--text);
+  display: block;
+  margin-top: -4px;
+}
+
+.food-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.food-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.field-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.field-value {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.82rem;
+  color: var(--text);
+  min-height: 30px;
+}
+
+@media (max-width: 500px) {
+  .food-grid { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════════
+   СВЕТЪЛ РЕЖИМ  (data-theme="light")
+   ════════════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:           #f5f5f5;
+  --bg-secondary: #ebebeb;
+  --card:         #ffffff;
+  --text:         #111111;
+  --muted:        #666666;
+}
+
+[data-theme="light"] body::before,
+[data-theme="light"] body::after {
+  background: linear-gradient(180deg, #f97316 0%, #c2410c 100%);
+}
+
+[data-theme="light"] header {
+  background: #ffffff;
+  border-bottom-color: var(--primary);
+}
+
+[data-theme="light"] input,
+[data-theme="light"] select {
+  background: #fff;
+  color: #111;
+  border-color: #ccc;
+}
+
+[data-theme="light"] .field-value {
+  background: #f0f0f0;
+  border-color: #ccc;
+  color: #111;
+}
+
+[data-theme="light"] .notes {
+  background: #fff8e1;
+  color: #7a4f00;
+}
+
+/* Бутон за тема */
+#btn-theme {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-size: 1rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#btn-theme:hover { background: var(--primary); color: white; }
+
+/* ══════════════════════════════════════════════════
+   ЦЕНА
+   ════════════════════════════════════════════════ */
+.price {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+
+/* ══════════════════════════════════════════════════
+   АЛЕРГЕН ПРЕДУПРЕЖДЕНИЕ
+   ════════════════════════════════════════════════ */
+.allergen-warning {
+  border: 2px solid #ef4444 !important;
+}
+
+.allergen-badge {
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+/* ══════════════════════════════════════════════════
+   ФИЛТЪР ЛЕН
+   ════════════════════════════════════════════════ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.filter-bar input { flex: 1; }
+
+/* ══════════════════════════════════════════════════
+   КРАСИВ ПРАЗЕН ДЕН
+   ════════════════════════════════════════════════ */
+.empty-day {
+  background: var(--card);
+  border: 1px solid #2a2a2a;
+  border-radius: var(--radius);
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+.empty-day p { margin-bottom: 6px; line-height: 1.5; }
+
+/* ══════════════════════════════════════════════════
+   ПОМОЩНИ
+   ════════════════════════════════════════════════ */
+.muted { color: var(--muted); font-size: 0.82rem; }
+
+.btn-delete-item {
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.btn-delete-item:hover { background: var(--danger); color: white; }
+
+/* ══════════════════════════════════════════════════
+   ТРИ ГРАФИ: Закуска / Основно / Десерт
+   ════════════════════════════════════════════════ */
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.course-section {
+  background: var(--card);
+  border: 1px solid #2a2a2a;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  transition: border-color 0.2s;
+}
+
+.course-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.course-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid var(--primary);
+  flex-shrink: 0;
+}
+
+.course-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.course-label {
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.course-name {
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.course-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.detail-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #222;
+}
+.detail-row:last-child { border-bottom: none; }
+
+.detail-label {
+  min-width: 80px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.allergen-text {
+  color: #f97316;
+  font-weight: 600;
+}
+
+/* Падащ филтър */
+.filter-bar select {
+  width: 100%;
+  padding: 10px 12px;
+}
+
+/* Светъл режим за секциите */
+[data-theme="light"] .course-section {
+  border-color: #ddd;
+}
+[data-theme="light"] .course-header {
+  border-bottom-color: #ddd;
+}
+[data-theme="light"] .detail-row {
+  border-bottom-color: #eee;
+}
