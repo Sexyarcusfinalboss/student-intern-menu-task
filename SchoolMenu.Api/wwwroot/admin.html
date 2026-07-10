@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="bg" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Кухня | Админ панел</title>
+  <title>Arcus and Foods | Кухня</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <header>
-    <h1>👩‍🍳 Кухня — админ панел</h1>
+    <div class="logo">
+      <img class="logo-img"
+           src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=88&h=88&fit=crop"
+           alt="Arcus and Foods">
+      <h1>Arcus <span>and Foods</span></h1>
+    </div>
     <div class="header-right">
-      <!-- Потребителското име се попълва от admin.js -->
+      <button id="btn-theme" title="Смени режима">🌙</button>
       <span id="who"></span>
       <button id="btn-logout">Изход</button>
     </div>
@@ -19,42 +24,50 @@
 
   <main>
 
-    <!-- ====================================================
-         СЕКЦИЯ 1: Ястия (РАБОТЕЩ ПРИМЕР за запис в базата)
-         ==================================================== -->
+    <!-- СЕКЦИЯ 1: Ястия -->
     <section class="panel">
       <h2>Ястия</h2>
-
-      <!-- Списъкът се пълни от admin.js -> loadItems() -->
       <ul id="items-list"></ul>
 
       <h3>Добави ново ястие</h3>
       <form id="item-form">
         <input id="item-name" placeholder="Име, напр. Леща чорба" required>
         <select id="item-type">
-          <option value="soup">🍲 Супа</option>
-          <option value="main">🍛 Основно</option>
-          <option value="dessert">🍰 Десерт</option>
+          <option value="soup">Супа</option>
+          <option value="main">Основно</option>
+          <option value="dessert">Десерт</option>
         </select>
         <input id="item-allergens" placeholder="Алергени, напр. глутен, мляко (по желание)">
+        <input id="item-ingredients" placeholder="Съставки, напр. краставица, кисело мляко (по желание)">
+        <input id="item-price" type="number" step="0.01" min="0" placeholder="Цена в лева, напр. 2.50 (по желание)">
         <button type="submit">Добави ястие</button>
+        <div id="item-error" class="error"></div>
       </form>
     </section>
 
-    <!-- ====================================================
-         СЕКЦИЯ 2: Дневно меню - ТВОЯТА ЗАДАЧА 1
-         ==================================================== -->
-    <section class="panel todo-box">
+    <!-- СЕКЦИЯ 2: Дневно меню -->
+    <section class="panel">
       <h2>Дневно меню</h2>
-      <p>
-        <strong>ЗАДАЧА 1:</strong> Тук направи форма за създаване на дневно меню:
-        дата + три падащи списъка (супа, основно, десерт) + бележки + бутон „Публикувай“.
-      </p>
-      <p>
-        Точните стъпки са описани в <code>js/admin.js</code> (най-долу).
-        Сървърът вече е готов — ползвай <code>postMenu()</code> от <code>js/api.js</code>.
-        Формата „Добави ястие“ по-горе е твоят модел за подражание!
-      </p>
+
+      <form id="menu-form">
+        <input type="date" id="menu-date-input" required>
+
+        <label>Супа</label>
+        <select id="select-soup"></select>
+
+        <label>Основно</label>
+        <select id="select-main"></select>
+
+        <label>Десерт</label>
+        <select id="select-dessert"></select>
+
+        <input id="menu-notes" placeholder="Бележки (по желание)">
+
+        <button type="submit">Публикувай менюто</button>
+        <div id="menu-error" class="error"></div>
+      </form>
+
+      <p id="menu-msg"></p>
     </section>
 
   </main>
