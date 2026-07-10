@@ -19,7 +19,7 @@ namespace SchoolMenu.Api.Data;
 //
 //  Добавяш нов модел? Направи класа в Models/ и добави тук
 //  още един ред DbSet - това е всичко.
-// ============================================================
+// ===========================================================
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
