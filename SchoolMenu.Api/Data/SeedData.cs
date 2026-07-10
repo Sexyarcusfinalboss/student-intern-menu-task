@@ -31,7 +31,7 @@ public static class SeedData
             Type        = "soup",
             Allergens   = "мляко",
             Ingredients = "кисело мляко, краставица, чесън, копър, орехи, олио, вода, сол",
-            Price       = 1.20m,
+            Price       = 2.50€,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTClRFKtJugWZl3Pfl-sbrLfWwe1KjLCWobRG1tXeHQaA&s=10"
         };
         var bobChorba = new MenuItem
@@ -40,7 +40,7 @@ public static class SeedData
             Type        = "soup",
             Allergens   = "целина",
             Ingredients = "боб, лук, морков, домати, чушки, целина, олио, червен пипер, чубрица, магданоз, сол",
-            Price       = 1.00m,
+            Price       = 2.90€,
             ImageUrl    = "https://cookinglsl.com/wp-content/uploads/2018/02/Vegan-Bulgarian-Easy-White-Bean-Soup-fg-1.jpg"
         };
         var pileshkaSupa = new MenuItem
@@ -49,7 +49,7 @@ public static class SeedData
             Type        = "soup",
             Allergens   = "яйца, глутен",
             Ingredients = "пилешко месо, морков, целина, лук, фиде, яйце, магданоз, сол, черен пипер",
-            Price       = 1.30m,
+            Price       = 2.90€,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDrivuX2r0tMturfi23DfdXXO2IDxlMXdye7H6apJKYQ&s=10"
         };
 
@@ -60,7 +60,7 @@ public static class SeedData
             Type        = "main",
             Allergens   = "",
             Ingredients = "пилешки бутчета, ориз, лук, морков, олио, куркума, сол, черен пипер, дафинов лист",
-            Price       = 3.50m,
+            Price       = 4.80€,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHWohTafVqd8fp9Q9sqKKj7z5TTwnPOmrNpGrS49qrFg&s=10"
         };
         var musaka = new MenuItem
@@ -69,7 +69,7 @@ public static class SeedData
             Type        = "main",
             Allergens   = "мляко, яйца",
             Ingredients = "картофи, кайма, лук, домати, яйца, мляко, олио, червен пипер, сол, черен пипер",
-            Price       = 3.20m,
+            Price       = 4.90€,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMSK9GEYXlt-kcaoof6fcSHnxnAlqadO1I9s2JGbCX2Q&s=10"
         };
         var spagetiBologneze = new MenuItem
@@ -78,7 +78,7 @@ public static class SeedData
             Type        = "main",
             Allergens   = "глутен",
             Ingredients = "спагети, кайма, лук, моркови, домати, чесън, зехтин, риган, сол, черен пипер",
-            Price       = 3.00m,
+            Price       = 5.20€,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf4ph_eTWlMC7vM2Q3o6y60yfQ7fDZ3U-N1c8cEx32mg&s=10"
         };
 
@@ -89,7 +89,7 @@ public static class SeedData
             Type        = "dessert",
             Allergens   = "глутен, яйца, мляко",
             Ingredients = "бутер тесто, ябълки, захар, канела, масло, стафиди, орехи",
-            Price       = 1.50m,
+            Price       = 3.20€,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS019UK_moNIawJHkZOumrJfptVvCDZPXNvrJjRGYGzbQ&s=10"
         };
         var kiseloMlyako = new MenuItem
@@ -98,7 +98,7 @@ public static class SeedData
             Type        = "dessert",
             Allergens   = "мляко",
             Ingredients = "кисело мляко, пчелен мед, орехи",
-            Price       = 1.00m,
+            Price       = 2.40,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTycQ5fqMIkr1wbDgiqnjVS2eLv_WnUh6mEXiYZmosJ4Q&s=10"
         };
         var biskvitenaTorta = new MenuItem
@@ -107,7 +107,7 @@ public static class SeedData
             Type        = "dessert",
             Allergens   = "глутен, мляко",
             Ingredients = "бисквити, прясно мляко, какао, масло, захар, ванилия",
-            Price       = 1.40m,
+            Price       = 3.00€,
             ImageUrl    = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS98n-fhXVvW0JD4rLdBh2ZtXgcPtFvXcntL5T42FFuHQ&s=10"
         };
 
